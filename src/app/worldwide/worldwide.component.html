@@ -1,0 +1,217 @@
+<div class="text-center">
+    <img
+        style="width: 30%"
+        src="https://firebasestorage.googleapis.com/v0/b/covid19-9662d.appspot.com/o/covidlogo.png?alt=media&token=74e12455-48fa-4120-b179-e9295253270d" 
+        alt="covid"
+    />
+    <h1 class="my-5 display-5" >Coronavirus Live Updates and Statistics</h1>
+
+
+    <div class="container">
+        <div class=" my-5 btn-group btn-group-lg"  style="width: 100%" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" (click)="clickonWorldwide()">Worldwide</button>
+            <button type="button" class="btn btn-secondary"  (click)="clickonnews()">News</button>
+            <button type="button" class="btn btn-secondary" (click)="signInwithGoogle()">Sign In with Google </button>
+        </div>
+        <h3 class="col-md-10 active" style="width: 100%">
+            <td>Corona Virus Summary Worldwide</td>
+        </h3>
+        <table class="table">
+            <tbody>
+                <tr class="table-warning">
+                    <td>Total Confirmed Cases</td>
+                    <td>{{confirmed | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-warning">
+                    <td>New Confirmed Cases</td>
+                    <td>{{newconfirmed | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-warning">
+                    <td>Active Cases</td>
+                    <td>{{active | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-success">
+                    <td>Total Recovered Cases</td>
+                    <td>{{recovered| number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-success">
+                    <td>New Recovered Cases</td>
+                    <td>{{newrecovered | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-success">
+                    <td>Recovery Rate</td>
+                    <td>{{recoveryRate}}%</td>
+                </tr> 
+                <tr class="table-danger">
+                    <td>Total Deaths Cases</td>
+                    <td>{{deaths | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-danger">
+                    <td>New Deaths Cases</td>
+                    <td>{{newdeaths | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-danger">
+                    <td>Moryality Rate</td>
+                    <td>{{moryalityRate}} %</td>
+                </tr>
+            </tbody>
+        </table>
+    <br>
+    <h3 class="col-md-10 active" style="width: 100%">
+        <td>Corona Virus Distribution Worldwide</td>
+    </h3>
+    <div class="chart">
+        <canvas baseChart
+            [data] = "pieChartData"
+            [labels] = "pieChartLabels"
+            [chartType] = "pieChartType"
+            [options] = "pieChartOptions"
+            [plugins] = "pieChartPlugins"
+            [colors] = "pieChartColors"
+            [legend] = "pieChartLegend"            >
+        </canvas>
+    </div>
+    <br>
+    <h3 class="col-md-10 active" style="width: 100%">
+        <td>Daily Corona Virus Cases Worldwide</td>
+    </h3>
+    <div class="chart-wrapper">
+        <canvas baseChart 
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+    </div>
+    <br>
+    <h3 class="col-md-10 active" style="width: 100%">
+        <td>Total Corona Virus Cases Worldwide</td>
+    </h3>
+    <div style="display: block;">
+        <canvas baseChart 
+            [datasets]="lineChartData" 
+            [labels]="lineChartLabels" 
+            [options]="lineChartOptions"
+            [colors]="lineChartColors" 
+            [legend]="lineChartLegend" 
+            [chartType]="lineChartType" 
+            [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+    <br>
+    <h3 class="col-md-10 active" style="width: 100%">
+        <td>Corona Virus Cases by Country</td>
+    </h3>
+<table class="table col-container" style="animation-delay: 1s; ">
+    <thead>
+        <tr>
+            <th class="sticky state-heading ">
+                <div  style="width: 200" class="heading-content "><abbr>Country</abbr>
+                </div>
+            </th>
+            <th class="sticky ">
+                <div class="table-warning"><abbr>New Cases</abbr>
+                </div>
+            </th>
+            <th class="sticky ">
+                <div class="table-warning"><abbr>Total Cases</abbr>
+                </div>
+            </th>
+            <th class="sticky ">
+                <div class="table-success "><abbr>New Recoveries</abbr>
+                </div>
+            </th> 
+            <th class="sticky ">
+                <div class="table-success "><abbr>Total Recoveries</abbr>
+                </div>
+            </th>            
+            <th class="sticky ">
+                <div class="table-danger "><abbr>New Deaths</abbr>
+                </div>
+            </th>
+            <th class="sticky ">
+                <div class="table-danger "><abbr>Total Deaths</abbr>
+                </div>
+            </th>
+
+        </tr>
+    </thead>
+
+
+    <tbody >
+        <tr >
+            <td  style="white-space: nowrap" class="col sticky state-heading ">
+                    <ul class="list-group" *ngFor="let x of allcountries">
+                        <li (click)="clickonCountry(x)" class="list-group-item list-group-item-active btn btn-light">
+                          {{x}}
+                        </li>
+                      </ul>
+            </td>
+            <td class="col sticky">
+                <div class="">
+                    <ul class="list-group alert-warning" *ngFor="let x of allNewConfirmed">
+                        <li class="list-group-item list-group-item-warning">
+                          {{x | number:'1.0':'en-US'}}
+                        </li>
+                      </ul>
+                </div>
+            </td>            
+            <td class="col sticky">
+                <div class="">
+                    <ul class="list-group alert-warning" *ngFor="let x of allTotalConfirmed">
+                        <li class="list-group-item list-group-item-warning">
+                          {{x | number:'1.0':'en-US'}}
+                        </li>
+                      </ul>
+                </div>
+            </td>            
+            <td class="col sticky">
+                <div class="">
+                    <ul class="list-group alert-success" *ngFor="let x of allNewRecovered">
+                        <li class="list-group-item list-group-item-success">
+                          {{x | number:'1.0':'en-US'}}
+                        </li>
+                      </ul>
+                </div>
+            </td>            
+            <td class="col sticky">
+                <div class="">
+                    <ul class="list-group alert-success" *ngFor="let x of allTotalRecovered">
+                        <li class="list-group-item list-group-item-success">
+                          {{x | number:'1.0':'en-US'}}
+                        </li>
+                      </ul>
+                </div>
+            </td>
+            <td class="col sticky">
+                <div class="alert-danger">
+                    <ul class="list-group" *ngFor="let x of allNewDeaths">
+                        <li class="list-group-item list-group-item-danger">
+                          {{x | number:'1.0':'en-US'}}
+                        </li>
+                      </ul>
+                </div>
+            </td>
+            <td class="col sticky">
+                <div class="alert-danger">
+                    <ul class="list-group" *ngFor="let x of allTotalDeaths">
+                        <li class="list-group-item list-group-item-danger">
+                          {{x | number:'1.0':'en-US'}}
+                        </li>
+                      </ul>
+                </div>
+            </td> 
+        </tr>
+
+    </tbody>
+
+</table>
+<div class="d-flex justify-content-center">
+<h5 class="text-center">
+    <td>Data Source: <a href="https://covid19api.com/">COVID-19 API / Johns Hopkins CSSE</a></td>
+</h5>
+</div>
+</div>
+</div>

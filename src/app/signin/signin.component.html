@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-sm-6"><h3>{{ user.displayName }}</h3>
+    </div>
+    <div class="col-sm-6 text-right">
+        <button class="btn btn-danger" (click)="coronaService.signOut()">Sign Out</button>
+    </div>
+ </div>
+
+
+
+    <div class="m-5 text-center" >
+        <table class="table table-bordered table-striped text-center" *ngIf="news && news.length > 0">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>News</th>
+              <th>user</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let n of news">
+              <td>{{ n.date.toDate() | date }}</td>
+              <td>{{ n.data }}</td>
+              <td>{{ user.displayName }}</td>
+            </tr>
+          </tbody>
+        </table>  
+   </div>
+
+
+<h4 class="col-md-10">Add news</h4>
+<form class="m-5" (ngSubmit)="addnews()">
+
+    <div >
+    <div class="form-group">
+        <label for="dateInput">Date</label>
+        <input
+            type="date"
+            id="dateInput"
+            name="dateInput"
+            class="form-control"
+            [(ngModel)]="datetoadd"
+            required
+        />
+
+    </div>
+    <div class="form-group">
+        <label for="newsInput">News</label>
+        <input
+            type="text"
+            id="newsInput"
+            name="newsInput"
+            class="form-control"
+            placeholder="What's new ?"
+            [(ngModel)]="newstoadd"
+            required
+        />
+    </div>
+    <div class="text-center"><button class="btn btn-primary">Add</button></div>
+    </div>
+</form>
+

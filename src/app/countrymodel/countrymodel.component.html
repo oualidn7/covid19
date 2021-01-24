@@ -1,0 +1,108 @@
+<div class="text-center">
+    <img
+        style="width: 30%"
+        src="https://firebasestorage.googleapis.com/v0/b/covid19-9662d.appspot.com/o/covidlogo.png?alt=media&token=74e12455-48fa-4120-b179-e9295253270d" 
+        alt="covid"
+    />
+    <h1 class="my-5 display-5" >Coronavirus Live Updates and Statistics</h1>
+
+
+    <div class="container">
+        <div class=" my-5 btn-group btn-group-lg"  style="width: 100%" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" (click)="clickonWorldwide()">Worldwide</button>
+            <button type="button" class="btn btn-secondary" (click)="clickonnews()">News</button>
+            <button type="button" class="btn btn-secondary"(click)="signInwithGoogle()">Sign In with Google </button>
+        </div>
+        <h3 class="col-md-10 active" style="width: 100%">
+            <td>Corona Virus Summary for {{countryname}}</td>
+        </h3>
+        <table class="table">
+            <tbody>
+                <tr class="table-warning">
+                    <td>Total Confirmed Cases</td>
+                    <td>{{confirmed | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-warning">
+                    <td>New Confirmed Cases</td>
+                    <td>{{newconfirmed | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-warning">
+                    <td>Active Cases</td>
+                    <td>{{active | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-success">
+                    <td>Total Recovered Cases</td>
+                    <td>{{recovered| number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-success">
+                    <td>New Recovered Cases</td>
+                    <td>{{newrecovered | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-success">
+                    <td>Recovery Rate</td>
+                    <td>{{recoveryRate}}%</td>
+                </tr> 
+                <tr class="table-danger">
+                    <td>Total Deaths Cases</td>
+                    <td>{{deaths | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-danger">
+                    <td>New Deaths Cases</td>
+                    <td>{{newdeaths | number:'1.0':'en-US'}}</td>
+                </tr>
+                <tr class="table-danger">
+                    <td>Moryality Rate</td>
+                    <td>{{moryalityRate}} %</td>
+                </tr>
+            </tbody>
+        </table>
+    <br>
+    <h3 class="col-md-10 active" style="width: 100%">
+        <td>Corona Virus Distribution for {{country.name}}</td>
+    </h3>
+        <div class="chart">
+            <canvas baseChart
+                [data] = "pieChartData"
+                [labels] = "pieChartLabels"
+                [chartType] = "pieChartType"
+                [options] = "pieChartOptions"
+                [plugins] = "pieChartPlugins"
+                [colors] = "pieChartColors"
+                [legend] = "pieChartLegend"            >
+            </canvas>
+        </div>
+    <br>
+    <h3 class="col-md-10 active" style="width: 100%">
+        <td>Daily Corona Virus Cases for the country : {{country.name}}</td>
+    </h3>
+        <div class="chart-wrapper">
+            <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+        </div>
+    <br>
+    <h3 class="col-md-10 active" style="width: 100%">
+        <td>Total Corona Virus Cases for the country : {{country.name}}</td>
+    </h3>
+        <div style="display: block;">
+            <canvas baseChart 
+                [datasets]="lineChartData" 
+                [labels]="lineChartLabels" 
+                [options]="lineChartOptions"
+                [colors]="lineChartColors" 
+                [legend]="lineChartLegend" 
+                [chartType]="lineChartType" 
+                [plugins]="lineChartPlugins">
+            </canvas>
+        </div>
+    </div>
+
+</div>
+   
+
+    
